@@ -39,17 +39,17 @@
     </script>
 
     <style>
-        /* Estilo personalizado para el fondo de mapa estilizado */
+        /* Modern map-themed background grid & glow accents */
         .map-bg {
             background-color: #0f172a;
             background-image: 
                 radial-gradient(at 50% 50%, rgba(30, 41, 59, 0.7) 0px, transparent 80%),
-                radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.15) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(236, 72, 153, 0.1) 0px, transparent 50%),
+                radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.18) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(236, 72, 153, 0.12) 0px, transparent 50%),
                 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cpath d='M9 0h2v120H9zm30 0h2v120h-2zm30 0h2v120h-2zm30 0h2v120h-2zM0 9v2h120V9zm0 30v2h120v-2zm0 30v2h120v-2zm0 30v2h120v-2z' fill='%23334155' fill-opacity='0.18'/%3E%3Cpath d='M0 25c30 0 30 20 60 20s30-20 60-20v2c-30 0-30 20-60 20S30 27 0 27zm0 50c30 0 30 20 60 20s30-20 60-20v2c-30 0-30 20-60 20S30 77 0 77z' fill='none' stroke='%23475569' stroke-width='1.5' stroke-opacity='0.25'/%3E%3C/svg%3E");
         }
 
-        /* Glassmorphism effect */
+        /* Glassmorphism styling */
         .glass-card {
             background: rgba(255, 255, 255, 0.88);
             backdrop-filter: blur(16px);
@@ -57,7 +57,7 @@
             border: 1px solid rgba(255, 255, 255, 0.5);
         }
 
-        /* Glow effect para botones */
+        /* Glow effects for review CTA button */
         .btn-glow {
             box-shadow: 0 10px 25px -5px rgba(66, 133, 244, 0.4), 0 8px 10px -6px rgba(66, 133, 244, 0.2);
         }
@@ -65,21 +65,21 @@
             box-shadow: 0 20px 30px -10px rgba(66, 133, 244, 0.6), 0 10px 12px -5px rgba(66, 133, 244, 0.3);
         }
 
-        /* Estrellas interactivas */
+        /* Interactive animated stars */
         .star-rating i {
-            transition: all 0.2s ease-in-out;
+            transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
             cursor: pointer;
         }
         .star-rating i:hover,
         .star-rating i.active {
             color: #F59E0B;
-            transform: scale(1.2);
+            transform: scale(1.22);
         }
     </style>
 </head>
 <body class="map-bg min-h-screen font-sans flex items-center justify-center p-4 sm:p-6 md:p-8 relative overflow-x-hidden text-slate-800">
 
-    <!-- Elementos decorativos de fondo que simulan pines e indicadores de mapa -->
+    <!-- Decorative Map Background Elements -->
     <div class="absolute top-12 left-10 text-blue-500/20 text-6xl animate-float pointer-events-none hidden md:block">
         <i class="fa-solid fa-location-dot"></i>
     </div>
@@ -90,39 +90,38 @@
         <i class="fa-solid fa-compass"></i>
     </div>
 
-    <!-- Contenedor Principal (Tarjeta Glassmorphism) -->
+    <!-- Central Glassmorphism Card -->
     <main class="glass-card w-full max-w-lg rounded-3xl p-6 sm:p-10 text-center shadow-2xl relative z-10 my-auto">
         
-        <!-- Logo / Icono Superior -->
+        <!-- Header Badge / Google Map Pin Icon -->
         <div class="relative inline-block mb-6">
-            <!-- Halo resplandeciente -->
             <div class="absolute inset-0 bg-blue-500 rounded-full blur-xl opacity-30 animate-pulse-slow"></div>
-            <!-- Icono de Google / Pin de Ubicación -->
             <div class="relative w-20 h-20 sm:w-24 sm:h-24 mx-auto bg-gradient-to-tr from-blue-600 via-indigo-500 to-rose-500 rounded-2xl p-0.5 shadow-xl flex items-center justify-center transform hover:rotate-3 transition-transform duration-300">
                 <div class="w-full h-full bg-white rounded-[14px] flex items-center justify-center">
                     <i class="fa-brands fa-google text-4xl sm:text-5xl text-blue-600"></i>
                 </div>
             </div>
-            <!-- Badge decorativo -->
             <span class="absolute -bottom-2 -right-2 bg-amber-400 text-amber-950 text-xs font-bold px-2.5 py-1 rounded-full shadow-md flex items-center gap-1">
                 <i class="fa-solid fa-check"></i> Oficial
             </span>
         </div>
 
-        <!-- Encabezado -->
+        <!-- Main Heading & Subtitle -->
         <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mb-1">
             ¡Tu opinión nos importa!
         </h1>
-        <p class="text-sm font-semibold text-blue-600 mb-4 uppercase tracking-wider">¡Cada reseña cuenta!</p>
+        <p class="text-sm font-semibold text-blue-600 mb-4 uppercase tracking-wider">
+            Déjanos tu reseña en Google
+        </p>
         
         <p class="text-slate-600 text-sm sm:text-base leading-relaxed mb-6">
-            Ayúdanos a seguir mejorando dejando tu calificación y reseña en Google.
+            Ayúdanos a seguir mejorando compartiendo tu experiencia con nosotros en Google Maps.
         </p>
 
-        <!-- Estrellas Interactivas Decorativas -->
+        <!-- Interactive 5-Star Rating Component -->
         <div class="bg-slate-100/80 rounded-2xl p-4 mb-8 border border-slate-200/60">
             <p class="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2">
-                ¿Qué tal fue tu experiencia hoy?
+                ¿Qué tal fue tu experiencia?
             </p>
             <div class="star-rating flex justify-center gap-2 text-2xl sm:text-3xl text-slate-300 py-1" id="starContainer">
                 <i class="fa-solid fa-star active text-amber-400" data-rating="1"></i>
@@ -136,35 +135,35 @@
             </p>
         </div>
 
-        <!-- Botón Call To Action (CTA) configurado a la URL de reseña de Google -->
-        <a href="https://search.google.com/local/writereview?placeid=ChIJob5ArWqNcY8RQDYGEvLwqPw" 
+        <!-- Call-to-Action Redirect Button -->
+        <a href="https://search.google.com/local/writereview?placeid=ChIJ4y6IpB2NcY8RnJ-B71aWBpE" 
            target="_blank" 
            rel="noopener noreferrer"
            id="reviewBtn"
            class="btn-glow group relative w-full inline-flex items-center justify-center gap-3 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 text-white font-semibold text-base sm:text-lg py-4 px-8 rounded-2xl transition-all duration-300 transform hover:-translate-y-1 active:translate-y-0">
             
-            <i class="fa-brands fa-google text-xl text-white/90 group-hover:scale-110 transition-transform"></i>
-            <span>Dejar Reseña en Google</span>
+            <i class="fa-solid fa-map-location-dot text-xl text-white/90 group-hover:scale-110 transition-transform"></i>
+            <span>Dejar Reseña en Google Maps</span>
             <i class="fa-solid fa-star text-amber-300 text-sm group-hover:rotate-45 transition-transform"></i>
         </a>
 
-        <!-- Pie de página informativo con opción de redirección automática opcional -->
+        <!-- Footer / Trust Indicator -->
         <div class="mt-6 pt-4 border-t border-slate-200/60 flex flex-col items-center gap-1.5 text-xs text-slate-400">
             <div class="flex items-center justify-center gap-2">
                 <i class="fa-solid fa-shield-halved text-emerald-500"></i>
                 <span>Enlace oficial y verificado de Google Maps</span>
             </div>
-            <p class="text-[11px] text-slate-400/80">Haz clic en las estrellas o en el botón para redirigirte al formulario.</p>
+            <p class="text-[11px] text-slate-400/80">Haz clic en las estrellas o en el botón para escribir tu reseña.</p>
         </div>
 
     </main>
 
-    <!-- Script para interacción con estrellas y redirección opcional al tocar -->
+    <!-- Interactive script for rating feedback and automatic redirect -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const stars = document.querySelectorAll('#starContainer i');
             const ratingText = document.getElementById('ratingText');
-            const reviewUrl = "https://search.google.com/local/writereview?placeid=ChIJob5ArWqNcY8RQDYGEvLwqPw";
+            const reviewUrl = "https://search.google.com/local/writereview?placeid=ChIJ4y6IpB2NcY8RnJ-B71aWBpE";
 
             const labels = {
                 1: 'Necesitamos mejorar',
@@ -180,7 +179,7 @@
                     updateStars(rating);
                 });
 
-                // Al tocar o hacer clic en cualquier estrella, redirige automáticamente
+                // Clicking any star updates view and opens the review link directly
                 star.addEventListener('click', function() {
                     const rating = parseInt(this.getAttribute('data-rating'));
                     updateStars(rating);
