@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>¡Déjanos tu reseña en Google!</title>
+    <title>Google Maps</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
@@ -20,14 +20,9 @@
                     },
                     animation: {
                         'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                        'bounce-subtle': 'bounceSubtle 2s infinite',
                         'float': 'float 4s ease-in-out infinite',
                     },
                     keyframes: {
-                        bounceSubtle: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-6px)' },
-                        },
                         float: {
                             '0%, 100%': { transform: 'translateY(0px)' },
                             '50%': { transform: 'translateY(-10px)' },
@@ -98,7 +93,7 @@
             <div class="absolute inset-0 bg-blue-500 rounded-full blur-xl opacity-30 animate-pulse-slow"></div>
             <div class="relative w-20 h-20 sm:w-24 sm:h-24 mx-auto bg-gradient-to-tr from-blue-600 via-indigo-500 to-rose-500 rounded-2xl p-0.5 shadow-xl flex items-center justify-center transform hover:rotate-3 transition-transform duration-300">
                 <div class="w-full h-full bg-white rounded-[14px] flex items-center justify-center">
-                    <i class="fa-brands fa-google text-4xl sm:text-5xl text-blue-600"></i>
+                    <i class="fa-solid fa-map-location-dot text-4xl sm:text-5xl text-blue-600"></i>
                 </div>
             </div>
             <span class="absolute -bottom-2 -right-2 bg-amber-400 text-amber-950 text-xs font-bold px-2.5 py-1 rounded-full shadow-md flex items-center gap-1">
@@ -108,20 +103,20 @@
 
         <!-- Main Heading & Subtitle -->
         <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mb-1">
-            ¡Tu opinión nos importa!
+            Google Maps
         </h1>
         <p class="text-sm font-semibold text-blue-600 mb-4 uppercase tracking-wider">
-            Déjanos tu reseña en Google
+            Explora y califica
         </p>
         
         <p class="text-slate-600 text-sm sm:text-base leading-relaxed mb-6">
-            Ayúdanos a seguir mejorando compartiendo tu experiencia con nosotros en Google Maps.
+            Haz clic en el botón o en las estrellas para ir directamente a Google Maps.
         </p>
 
         <!-- Interactive 5-Star Rating Component -->
         <div class="bg-slate-100/80 rounded-2xl p-4 mb-8 border border-slate-200/60">
             <p class="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2">
-                ¿Qué tal fue tu experiencia?
+                Valora tu experiencia
             </p>
             <div class="star-rating flex justify-center gap-2 text-2xl sm:text-3xl text-slate-300 py-1" id="starContainer">
                 <i class="fa-solid fa-star active text-amber-400" data-rating="1"></i>
@@ -136,24 +131,23 @@
         </div>
 
         <!-- Call-to-Action Redirect Button -->
-        <a href="https://search.google.com/local/writereview?placeid=ChIJ4y6IpB2NcY8RnJ-B71aWBpE" 
+        <a href="https://maps.google.com" 
            target="_blank" 
            rel="noopener noreferrer"
            id="reviewBtn"
            class="btn-glow group relative w-full inline-flex items-center justify-center gap-3 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 text-white font-semibold text-base sm:text-lg py-4 px-8 rounded-2xl transition-all duration-300 transform hover:-translate-y-1 active:translate-y-0">
             
-            <i class="fa-solid fa-map-location-dot text-xl text-white/90 group-hover:scale-110 transition-transform"></i>
-            <span>Dejar Reseña en Google Maps</span>
-            <i class="fa-solid fa-star text-amber-300 text-sm group-hover:rotate-45 transition-transform"></i>
+            <i class="fa-solid fa-location-arrow text-xl text-white/90 group-hover:scale-110 transition-transform"></i>
+            <span>Abrir Google Maps</span>
+            <i class="fa-solid fa-chevron-right text-amber-300 text-sm group-hover:translate-x-1 transition-transform"></i>
         </a>
 
         <!-- Footer / Trust Indicator -->
         <div class="mt-6 pt-4 border-t border-slate-200/60 flex flex-col items-center gap-1.5 text-xs text-slate-400">
             <div class="flex items-center justify-center gap-2">
                 <i class="fa-solid fa-shield-halved text-emerald-500"></i>
-                <span>Enlace oficial y verificado de Google Maps</span>
+                <span>Enlace oficial de Google Maps</span>
             </div>
-            <p class="text-[11px] text-slate-400/80">Haz clic en las estrellas o en el botón para escribir tu reseña.</p>
         </div>
 
     </main>
@@ -163,7 +157,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             const stars = document.querySelectorAll('#starContainer i');
             const ratingText = document.getElementById('ratingText');
-            const reviewUrl = "https://search.google.com/local/writereview?placeid=ChIJ4y6IpB2NcY8RnJ-B71aWBpE";
+            const targetUrl = "https://maps.google.com";
 
             const labels = {
                 1: 'Necesitamos mejorar',
@@ -179,12 +173,11 @@
                     updateStars(rating);
                 });
 
-                // Clicking any star updates view and opens the review link directly
                 star.addEventListener('click', function() {
                     const rating = parseInt(this.getAttribute('data-rating'));
                     updateStars(rating);
                     setTimeout(() => {
-                        window.open(reviewUrl, '_blank');
+                        window.open(targetUrl, '_blank');
                     }, 250);
                 });
             });
