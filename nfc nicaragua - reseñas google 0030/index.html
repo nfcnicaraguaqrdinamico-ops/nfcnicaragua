@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Google Maps</title>
+    <title>Dejar Reseña en Google Maps</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
@@ -20,12 +20,18 @@
                     },
                     animation: {
                         'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'ping-slow': 'ping 2s cubic-bezier(0, 0, 0.2, 1) infinite',
                         'float': 'float 4s ease-in-out infinite',
+                        'bounce-subtle': 'bounceSubtle 2s infinite',
                     },
                     keyframes: {
                         float: {
                             '0%, 100%': { transform: 'translateY(0px)' },
                             '50%': { transform: 'translateY(-10px)' },
+                        },
+                        bounceSubtle: {
+                            '0%, 100%': { transform: 'translateY(-5%)' },
+                            '50%': { transform: 'translateY(0)' },
                         }
                     }
                 }
@@ -34,33 +40,33 @@
     </script>
 
     <style>
-        /* Modern map-themed background grid & glow accents */
+        /* Dark map background styling */
         .map-bg {
-            background-color: #0f172a;
+            background-color: #0b0f19;
             background-image: 
-                radial-gradient(at 50% 50%, rgba(30, 41, 59, 0.7) 0px, transparent 80%),
-                radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.18) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(236, 72, 153, 0.12) 0px, transparent 50%),
-                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cpath d='M9 0h2v120H9zm30 0h2v120h-2zm30 0h2v120h-2zm30 0h2v120h-2zM0 9v2h120V9zm0 30v2h120v-2zm0 30v2h120v-2zm0 30v2h120v-2z' fill='%23334155' fill-opacity='0.18'/%3E%3Cpath d='M0 25c30 0 30 20 60 20s30-20 60-20v2c-30 0-30 20-60 20S30 27 0 27zm0 50c30 0 30 20 60 20s30-20 60-20v2c-30 0-30 20-60 20S30 77 0 77z' fill='none' stroke='%23475569' stroke-width='1.5' stroke-opacity='0.25'/%3E%3C/svg%3E");
+                radial-gradient(at 50% 50%, rgba(30, 41, 59, 0.8) 0px, transparent 80%),
+                radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.2) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(236, 72, 153, 0.15) 0px, transparent 50%),
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cpath d='M9 0h2v120H9zm30 0h2v120h-2zm30 0h2v120h-2zm30 0h2v120h-2zM0 9v2h120V9zm0 30v2h120v-2zm0 30v2h120v-2zm0 30v2h120v-2z' fill='%23334155' fill-opacity='0.22'/%3E%3Cpath d='M0 25c30 0 30 20 60 20s30-20 60-20v2c-30 0-30 20-60 20S30 27 0 27zm0 50c30 0 30 20 60 20s30-20 60-20v2c-30 0-30 20-60 20S30 77 0 77z' fill='none' stroke='%23475569' stroke-width='1.5' stroke-opacity='0.3'/%3E%3C/svg%3E");
         }
 
-        /* Glassmorphism styling */
+        /* Glassmorphism card container */
         .glass-card {
-            background: rgba(255, 255, 255, 0.88);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
         }
 
-        /* Glow effects for review CTA button */
+        /* Glow effect for CTA button */
         .btn-glow {
-            box-shadow: 0 10px 25px -5px rgba(66, 133, 244, 0.4), 0 8px 10px -6px rgba(66, 133, 244, 0.2);
+            box-shadow: 0 10px 25px -5px rgba(66, 133, 244, 0.5), 0 8px 10px -6px rgba(66, 133, 244, 0.3);
         }
         .btn-glow:hover {
-            box-shadow: 0 20px 30px -10px rgba(66, 133, 244, 0.6), 0 10px 12px -5px rgba(66, 133, 244, 0.3);
+            box-shadow: 0 20px 30px -10px rgba(66, 133, 244, 0.7), 0 10px 12px -5px rgba(66, 133, 244, 0.4);
         }
 
-        /* Interactive animated stars */
+        /* Interactive star rating styles */
         .star-rating i {
             transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
             cursor: pointer;
@@ -74,49 +80,47 @@
 </head>
 <body class="map-bg min-h-screen font-sans flex items-center justify-center p-4 sm:p-6 md:p-8 relative overflow-x-hidden text-slate-800">
 
-    <!-- Decorative Map Background Elements -->
-    <div class="absolute top-12 left-10 text-blue-500/20 text-6xl animate-float pointer-events-none hidden md:block">
-        <i class="fa-solid fa-location-dot"></i>
-    </div>
-    <div class="absolute bottom-16 right-12 text-rose-500/20 text-7xl animate-float pointer-events-none hidden md:block" style="animation-delay: 1.5s;">
-        <i class="fa-solid fa-map-pin"></i>
-    </div>
-    <div class="absolute top-1/4 right-1/4 text-emerald-500/15 text-5xl animate-float pointer-events-none hidden lg:block" style="animation-delay: 2.5s;">
+    <!-- Pulsing Map Pin Animation Overlay Elements -->
+    <div class="absolute top-1/4 left-16 text-blue-500/20 text-6xl animate-float pointer-events-none hidden md:block">
         <i class="fa-solid fa-compass"></i>
+    </div>
+    <div class="absolute bottom-20 right-16 text-rose-500/20 text-7xl animate-float pointer-events-none hidden md:block" style="animation-delay: 1.5s;">
+        <i class="fa-solid fa-map-location-dot"></i>
     </div>
 
     <!-- Central Glassmorphism Card -->
     <main class="glass-card w-full max-w-lg rounded-3xl p-6 sm:p-10 text-center shadow-2xl relative z-10 my-auto">
         
-        <!-- Header Badge / Google Map Pin Icon -->
+        <!-- Animated Google Maps Location Pin Badge -->
         <div class="relative inline-block mb-6">
-            <div class="absolute inset-0 bg-blue-500 rounded-full blur-xl opacity-30 animate-pulse-slow"></div>
-            <div class="relative w-20 h-20 sm:w-24 sm:h-24 mx-auto bg-gradient-to-tr from-blue-600 via-indigo-500 to-rose-500 rounded-2xl p-0.5 shadow-xl flex items-center justify-center transform hover:rotate-3 transition-transform duration-300">
-                <div class="w-full h-full bg-white rounded-[14px] flex items-center justify-center">
-                    <i class="fa-solid fa-map-location-dot text-4xl sm:text-5xl text-blue-600"></i>
+            <div class="absolute inset-0 bg-red-500 rounded-full blur-xl opacity-40 animate-pulse-slow"></div>
+            <div class="relative w-20 h-20 sm:w-24 sm:h-24 mx-auto bg-gradient-to-tr from-red-600 via-rose-500 to-amber-500 rounded-2xl p-0.5 shadow-xl flex items-center justify-center transform hover:rotate-3 transition-transform duration-300">
+                <div class="w-full h-full bg-white rounded-[14px] flex items-center justify-center relative overflow-hidden">
+                    <div class="absolute w-8 h-8 bg-red-500/20 rounded-full animate-ping-slow"></div>
+                    <i class="fa-solid fa-location-dot text-4xl sm:text-5xl text-red-600 animate-bounce-subtle"></i>
                 </div>
             </div>
-            <span class="absolute -bottom-2 -right-2 bg-amber-400 text-amber-950 text-xs font-bold px-2.5 py-1 rounded-full shadow-md flex items-center gap-1">
-                <i class="fa-solid fa-check"></i> Oficial
+            <span class="absolute -bottom-2 -right-2 bg-emerald-500 text-white text-xs font-bold px-2.5 py-1 rounded-full shadow-md flex items-center gap-1">
+                <i class="fa-solid fa-check"></i> Google Maps
             </span>
         </div>
 
         <!-- Main Heading & Subtitle -->
         <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mb-1">
-            Google Maps
+            ¡Tu opinión nos importa!
         </h1>
         <p class="text-sm font-semibold text-blue-600 mb-4 uppercase tracking-wider">
-            Explora y califica
+            Ayúdanos a seguir mejorando
         </p>
         
         <p class="text-slate-600 text-sm sm:text-base leading-relaxed mb-6">
-            Haz clic en el botón o en las estrellas para ir directamente a Google Maps.
+            Haz clic en las estrellas o en el botón de abajo para dejar tu reseña en Google Maps.
         </p>
 
         <!-- Interactive 5-Star Rating Component -->
         <div class="bg-slate-100/80 rounded-2xl p-4 mb-8 border border-slate-200/60">
             <p class="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2">
-                Valora tu experiencia
+                Selecciona tu valoración
             </p>
             <div class="star-rating flex justify-center gap-2 text-2xl sm:text-3xl text-slate-300 py-1" id="starContainer">
                 <i class="fa-solid fa-star active text-amber-400" data-rating="1"></i>
@@ -131,33 +135,33 @@
         </div>
 
         <!-- Call-to-Action Redirect Button -->
-        <a href="https://maps.google.com" 
+        <a href="https://search.google.com/local/writereview?placeid=ChIJ4y6IpB2NcY8RnJ-B71aWBpE" 
            target="_blank" 
            rel="noopener noreferrer"
            id="reviewBtn"
            class="btn-glow group relative w-full inline-flex items-center justify-center gap-3 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 text-white font-semibold text-base sm:text-lg py-4 px-8 rounded-2xl transition-all duration-300 transform hover:-translate-y-1 active:translate-y-0">
             
-            <i class="fa-solid fa-location-arrow text-xl text-white/90 group-hover:scale-110 transition-transform"></i>
-            <span>Abrir Google Maps</span>
-            <i class="fa-solid fa-chevron-right text-amber-300 text-sm group-hover:translate-x-1 transition-transform"></i>
+            <i class="fa-solid fa-star text-amber-300 text-xl group-hover:rotate-12 transition-transform"></i>
+            <span>Dejar Reseña en Google Maps</span>
+            <i class="fa-solid fa-arrow-right text-sm group-hover:translate-x-1.5 transition-transform"></i>
         </a>
 
-        <!-- Footer / Trust Indicator -->
+        <!-- Footer Trust Indicator -->
         <div class="mt-6 pt-4 border-t border-slate-200/60 flex flex-col items-center gap-1.5 text-xs text-slate-400">
             <div class="flex items-center justify-center gap-2">
                 <i class="fa-solid fa-shield-halved text-emerald-500"></i>
-                <span>Enlace oficial de Google Maps</span>
+                <span>Enlace oficial verificado de Google Business</span>
             </div>
         </div>
 
     </main>
 
-    <!-- Interactive script for rating feedback and automatic redirect -->
+    <!-- Rating interaction and automatic redirect script -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const stars = document.querySelectorAll('#starContainer i');
             const ratingText = document.getElementById('ratingText');
-            const targetUrl = "https://maps.google.com";
+            const targetUrl = "https://search.google.com/local/writereview?placeid=ChIJ4y6IpB2NcY8RnJ-B71aWBpE";
 
             const labels = {
                 1: 'Necesitamos mejorar',
