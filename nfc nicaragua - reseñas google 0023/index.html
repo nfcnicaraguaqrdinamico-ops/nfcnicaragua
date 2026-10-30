@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Google Maps</title>
+    <title>Déjanos tu reseña - Google Maps</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
@@ -76,13 +76,13 @@
 
     <!-- Decorative Map Background Elements -->
     <div class="absolute top-12 left-10 text-blue-500/20 text-6xl animate-float pointer-events-none hidden md:block">
-        <i class="fa-solid fa-location-dot"></i>
+        <i class="fa-solid fa-star"></i>
     </div>
     <div class="absolute bottom-16 right-12 text-rose-500/20 text-7xl animate-float pointer-events-none hidden md:block" style="animation-delay: 1.5s;">
-        <i class="fa-solid fa-map-pin"></i>
+        <i class="fa-solid fa-pen-nib"></i>
     </div>
     <div class="absolute top-1/4 right-1/4 text-emerald-500/15 text-5xl animate-float pointer-events-none hidden lg:block" style="animation-delay: 2.5s;">
-        <i class="fa-solid fa-compass"></i>
+        <i class="fa-solid fa-heart"></i>
     </div>
 
     <!-- Central Glassmorphism Card -->
@@ -93,7 +93,7 @@
             <div class="absolute inset-0 bg-blue-500 rounded-full blur-xl opacity-30 animate-pulse-slow"></div>
             <div class="relative w-20 h-20 sm:w-24 sm:h-24 mx-auto bg-gradient-to-tr from-blue-600 via-indigo-500 to-rose-500 rounded-2xl p-0.5 shadow-xl flex items-center justify-center transform hover:rotate-3 transition-transform duration-300">
                 <div class="w-full h-full bg-white rounded-[14px] flex items-center justify-center">
-                    <i class="fa-solid fa-map-location-dot text-4xl sm:text-5xl text-blue-600"></i>
+                    <i class="fa-solid fa-star text-4xl sm:text-5xl text-amber-500"></i>
                 </div>
             </div>
             <span class="absolute -bottom-2 -right-2 bg-amber-400 text-amber-950 text-xs font-bold px-2.5 py-1 rounded-full shadow-md flex items-center gap-1">
@@ -103,16 +103,104 @@
 
         <!-- Main Heading & Subtitle -->
         <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mb-1">
-            Google Maps
+            Valora nuestro servicio
         </h1>
         <p class="text-sm font-semibold text-blue-600 mb-4 uppercase tracking-wider">
-            Explora y califica
+            Tu opinión es muy importante
         </p>
         
         <p class="text-slate-600 text-sm sm:text-base leading-relaxed mb-6">
-            Haz clic en el botón o en las estrellas para ir directamente a Google Maps.
+            Haz clic en las estrellas o en el botón para dejarnos tu reseña en Google.
         </p>
 
         <!-- Interactive 5-Star Rating Component -->
         <div class="bg-slate-100/80 rounded-2xl p-4 mb-8 border border-slate-200/60">
-            <p class="text-xs font
+            <p class="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2">
+                Selecciona tu puntuación
+            </p>
+            <div class="star-rating flex justify-center gap-2 text-2xl sm:text-3xl text-slate-300 py-1" id="starContainer">
+                <i class="fa-solid fa-star active text-amber-400" data-rating="1"></i>
+                <i class="fa-solid fa-star active text-amber-400" data-rating="2"></i>
+                <i class="fa-solid fa-star active text-amber-400" data-rating="3"></i>
+                <i class="fa-solid fa-star active text-amber-400" data-rating="4"></i>
+                <i class="fa-solid fa-star active text-amber-400" data-rating="5"></i>
+            </div>
+            <p class="text-xs text-amber-600 font-medium mt-1.5 h-4" id="ratingText">
+                ¡Excelente experiencia!
+            </p>
+        </div>
+
+        <!-- Call-to-Action Redirect Button -->
+        <a href="https://search.google.com/local/writereview?placeid=ChIJw_0pLf6NcY8R3wyVsiiL-2w" 
+           target="_blank" 
+           rel="noopener noreferrer"
+           id="reviewBtn"
+           class="btn-glow group relative w-full inline-flex items-center justify-center gap-3 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 text-white font-semibold text-base sm:text-lg py-4 px-8 rounded-2xl transition-all duration-300 transform hover:-translate-y-1 active:translate-y-0">
+            
+            <i class="fa-solid fa-pen text-xl text-white/90 group-hover:scale-110 transition-transform"></i>
+            <span>Dejar Reseña en Google</span>
+            <i class="fa-solid fa-chevron-right text-amber-300 text-sm group-hover:translate-x-1 transition-transform"></i>
+        </a>
+
+        <!-- Footer / Trust Indicator -->
+        <div class="mt-6 pt-4 border-t border-slate-200/60 flex flex-col items-center gap-1.5 text-xs text-slate-400">
+            <div class="flex items-center justify-center gap-2">
+                <i class="fa-solid fa-shield-halved text-emerald-500"></i>
+                <span>Enlace oficial y seguro de reseñas</span>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Interactive script for rating feedback and automatic redirect -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const stars = document.querySelectorAll('#starContainer i');
+            const ratingText = document.getElementById('ratingText');
+            const targetUrl = "https://search.google.com/local/writereview?placeid=ChIJw_0pLf6NcY8R3wyVsiiL-2w";
+
+            const labels = {
+                1: 'Necesitamos mejorar',
+                2: 'Podemos hacerlo mejor',
+                3: 'Buena experiencia',
+                4: '¡Muy buena experiencia!',
+                5: '¡Excelente experiencia!'
+            };
+
+            stars.forEach(star => {
+                star.addEventListener('mouseenter', function() {
+                    const rating = parseInt(this.getAttribute('data-rating'));
+                    updateStars(rating);
+                });
+
+                star.addEventListener('click', function() {
+                    const rating = parseInt(this.getAttribute('data-rating'));
+                    updateStars(rating);
+                    setTimeout(() => {
+                        window.open(targetUrl, '_blank');
+                    }, 250);
+                });
+            });
+
+            const starContainer = document.getElementById('starContainer');
+            starContainer.addEventListener('mouseleave', () => {
+                updateStars(5);
+            });
+
+            function updateStars(rating) {
+                stars.forEach(s => {
+                    const sRating = parseInt(s.getAttribute('data-rating'));
+                    if (sRating <= rating) {
+                        s.classList.add('active', 'text-amber-400');
+                        s.classList.remove('text-slate-300');
+                    } else {
+                        s.classList.remove('active', 'text-amber-400');
+                        s.classList.add('text-slate-300');
+                    }
+                });
+                ratingText.textContent = labels[rating] || '';
+            }
+        });
+    </script>
+</body>
+</html>
